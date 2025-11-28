@@ -1,5 +1,18 @@
 # Changelog
 
+## [0.2.0](https://github.com/nicklasl/confidence-resolver/compare/openfeature-provider/ruby-v0.1.1...openfeature-provider/ruby/v0.2.0) (2025-11-28)
+
+
+### Features
+
+* add Ruby openfeature provider remote resolver ([#123](https://github.com/nicklasl/confidence-resolver/issues/123)) ([574a1e9](https://github.com/nicklasl/confidence-resolver/commit/574a1e91aafd079d9d3a119514416db953a63e3f))
+
+
+### Bug Fixes
+
+* fix release please versioning for ruby ([#126](https://github.com/nicklasl/confidence-resolver/issues/126)) ([e146c5f](https://github.com/nicklasl/confidence-resolver/commit/e146c5fd85b9ebacb20cffdf1883936081e1a7fb))
+* **openfeature-provider/ruby:** bump ruby version ([#137](https://github.com/nicklasl/confidence-resolver/issues/137)) ([bfe0321](https://github.com/nicklasl/confidence-resolver/commit/bfe03214dee511f5b1a5a70fbcbb794bde36f3dc))
+
 ## [0.1.1](https://github.com/spotify/confidence-resolver/compare/openfeature-provider/ruby/v0.1.0...openfeature-provider/ruby/v0.1.1) (2025-11-12)
 
 

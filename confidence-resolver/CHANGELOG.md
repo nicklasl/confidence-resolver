@@ -1,5 +1,37 @@
 # Changelog
 
+## [0.8.0](https://github.com/nicklasl/confidence-resolver/compare/confidence_resolver-v0.7.0...confidence_resolver-v0.8.0) (2025-11-28)
+
+
+### ⚠ BREAKING CHANGES
+
+* migrate to cdn state fetch, publish logs using client secret ([#166](https://github.com/nicklasl/confidence-resolver/issues/166))
+
+### Features
+
+* Add Java OpenFeature provider ([#58](https://github.com/nicklasl/confidence-resolver/issues/58)) ([1bba814](https://github.com/nicklasl/confidence-resolver/commit/1bba8145be547bce4f704585feef5f41d8dbc8bd))
+* error handling to avoid panics ([2a645a8](https://github.com/nicklasl/confidence-resolver/commit/2a645a87415bfce30af048498e068952b18ceb5e))
+* Faster deploy image executions ([#10](https://github.com/nicklasl/confidence-resolver/issues/10)) ([d945331](https://github.com/nicklasl/confidence-resolver/commit/d9453317e9e40575e43d67558ef902a4bc62ee41))
+* js local resolver ([#32](https://github.com/nicklasl/confidence-resolver/issues/32)) ([58893d6](https://github.com/nicklasl/confidence-resolver/commit/58893d6610b56b5aa6a6250db9e9bb1af506497f))
+* migrate to cdn state fetch, publish logs using client secret ([#166](https://github.com/nicklasl/confidence-resolver/issues/166)) ([6c8d959](https://github.com/nicklasl/confidence-resolver/commit/6c8d959f124faa419c1ace103d8832457248eb26))
+* Request per second in TelemetryData ([#150](https://github.com/nicklasl/confidence-resolver/issues/150)) ([b91669d](https://github.com/nicklasl/confidence-resolver/commit/b91669d75caa0971ab71d0589634ab039dae6081))
+* send java sdk info in resolve request ([#160](https://github.com/nicklasl/confidence-resolver/issues/160)) ([8e10327](https://github.com/nicklasl/confidence-resolver/commit/8e103271886624187246ae86d8a78f74121a2f33))
+* send js sdk info in resolve request ([#161](https://github.com/nicklasl/confidence-resolver/issues/161)) ([5cbc7d9](https://github.com/nicklasl/confidence-resolver/commit/5cbc7d9e2ada26c52298d74faaba50ec6cb4c3e7))
+* size limited flush api  ([#149](https://github.com/nicklasl/confidence-resolver/issues/149)) ([6ac60d6](https://github.com/nicklasl/confidence-resolver/commit/6ac60d6195421c9355941e4201993b521c831fcd))
+* Support non-fractional Integers as targeting key ([#17](https://github.com/nicklasl/confidence-resolver/issues/17)) ([554f442](https://github.com/nicklasl/confidence-resolver/commit/554f442551e3ef8213a52cca266054ae5da0511e))
+* update sticky ([#38](https://github.com/nicklasl/confidence-resolver/issues/38)) ([41a42d2](https://github.com/nicklasl/confidence-resolver/commit/41a42d2917401de7389dcc37719b16de1e30199c))
+
+
+### Bug Fixes
+
+* fix materialization default ([#59](https://github.com/nicklasl/confidence-resolver/issues/59)) ([bdece6c](https://github.com/nicklasl/confidence-resolver/commit/bdece6c5a4d53d6284056b6daaf9e8d17481db84))
+* fix queue waiting ([#57](https://github.com/nicklasl/confidence-resolver/issues/57)) ([b0da391](https://github.com/nicklasl/confidence-resolver/commit/b0da3916f3179ab31ecea8196d106b303b5589d6))
+* handle arithmetic panics ([#45](https://github.com/nicklasl/confidence-resolver/issues/45)) ([83912c9](https://github.com/nicklasl/confidence-resolver/commit/83912c9d93665b01a4cc1e9cd8e520fd94f2e21a))
+* handle arithmetic panics ([#45](https://github.com/nicklasl/confidence-resolver/issues/45)) ([6713c28](https://github.com/nicklasl/confidence-resolver/commit/6713c28196b351db9ba22eb87ca7b83ef4a25ff3))
+* return false out of range ([#47](https://github.com/nicklasl/confidence-resolver/issues/47)) ([0a91568](https://github.com/nicklasl/confidence-resolver/commit/0a915688d115df760692879c5e93f62c54a09d56))
+* various memory issues ([#35](https://github.com/nicklasl/confidence-resolver/issues/35)) ([13c53fc](https://github.com/nicklasl/confidence-resolver/commit/13c53fcc5c1a51c90d51c47adb574316866c9b5b))
+* wasm profile and small fixes ([#7](https://github.com/nicklasl/confidence-resolver/issues/7)) ([fae928b](https://github.com/nicklasl/confidence-resolver/commit/fae928b6c5d0923e4c82f2f4ae9b10bf0608beff))
+
 ## [0.7.0](https://github.com/spotify/confidence-resolver/compare/confidence_resolver-v0.6.0...confidence_resolver-v0.7.0) (2025-11-24)
 
 

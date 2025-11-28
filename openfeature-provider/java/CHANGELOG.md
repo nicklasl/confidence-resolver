@@ -1,5 +1,38 @@
 # Changelog
 
+## [0.9.0](https://github.com/nicklasl/confidence-resolver/compare/openfeature-provider-java-v0.8.0...openfeature-provider-java-v0.9.0) (2025-11-28)
+
+
+### ⚠ BREAKING CHANGES
+
+* migrate to cdn state fetch, publish logs using client secret ([#166](https://github.com/nicklasl/confidence-resolver/issues/166))
+
+### Features
+
+* [release-please] Java Provider support ([#68](https://github.com/nicklasl/confidence-resolver/issues/68)) ([9478533](https://github.com/nicklasl/confidence-resolver/commit/9478533960bf02e86d4ed1aab7ac1edd5034c3fb))
+* Add Java OpenFeature provider ([#58](https://github.com/nicklasl/confidence-resolver/issues/58)) ([1bba814](https://github.com/nicklasl/confidence-resolver/commit/1bba8145be547bce4f704585feef5f41d8dbc8bd))
+* migrate to cdn state fetch, publish logs using client secret ([#166](https://github.com/nicklasl/confidence-resolver/issues/166)) ([6c8d959](https://github.com/nicklasl/confidence-resolver/commit/6c8d959f124faa419c1ace103d8832457248eb26))
+* **openfeature-provider/java:** connectionfactory for testing ([#147](https://github.com/nicklasl/confidence-resolver/issues/147)) ([e1ca77e](https://github.com/nicklasl/confidence-resolver/commit/e1ca77efc26cbd8cfc6f822e691b385328bf8f53))
+* **openfeature-provider/java:** make java provider init as in the OF spec ([#151](https://github.com/nicklasl/confidence-resolver/issues/151)) ([1adf48e](https://github.com/nicklasl/confidence-resolver/commit/1adf48eea2c70ad94d85c8e803e5c81ab439c02b))
+* Request per second in TelemetryData ([#150](https://github.com/nicklasl/confidence-resolver/issues/150)) ([b91669d](https://github.com/nicklasl/confidence-resolver/commit/b91669d75caa0971ab71d0589634ab039dae6081))
+* send java sdk info in resolve request ([#160](https://github.com/nicklasl/confidence-resolver/issues/160)) ([8e10327](https://github.com/nicklasl/confidence-resolver/commit/8e103271886624187246ae86d8a78f74121a2f33))
+* set the nr of wasm instances with an env var ([#158](https://github.com/nicklasl/confidence-resolver/issues/158)) ([8ba8900](https://github.com/nicklasl/confidence-resolver/commit/8ba8900e5717931a3132a2f916889ef6a74a80a7))
+
+
+### Bug Fixes
+
+* **deps-dev:** bump commons-lang3 from 3.17.0 to 3.18.0 in /openfeature-provider/java ([#89](https://github.com/nicklasl/confidence-resolver/issues/89)) ([7db65a6](https://github.com/nicklasl/confidence-resolver/commit/7db65a662374d2aab01c77f243082c482113981e))
+* java refactoring and cleanups ([#74](https://github.com/nicklasl/confidence-resolver/issues/74)) ([700881e](https://github.com/nicklasl/confidence-resolver/commit/700881ef9605e950607a40984664decf33dc8643))
+* **java:** reload state before creating the initial Resolver ([#104](https://github.com/nicklasl/confidence-resolver/issues/104)) ([93581bd](https://github.com/nicklasl/confidence-resolver/commit/93581bd65f5775b9f188a1c9962153428cc76bdc))
+* **openfeature/java:** update readme and fix release please update ([#120](https://github.com/nicklasl/confidence-resolver/issues/120)) ([7e78391](https://github.com/nicklasl/confidence-resolver/commit/7e7839143ba7f77007bac554006bc36dade172a3))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * rust-guest bumped from 0.1.10 to 0.1.11
+
 ## [0.8.0](https://github.com/spotify/confidence-resolver/compare/openfeature-provider-java-v0.7.4...openfeature-provider-java-v0.8.0) (2025-11-24)
 
 
