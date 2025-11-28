@@ -4,6 +4,24 @@ on:
   push:
     branches:
       - main
+  workflow_dispatch:
+    inputs:
+      test_java_release:
+        description: 'Simulate Java provider release'
+        type: boolean
+        default: false
+      test_js_release:
+        description: 'Simulate JavaScript provider release'
+        type: boolean
+        default: false
+      test_go_release:
+        description: 'Simulate Go provider release'
+        type: boolean
+        default: false
+      test_ruby_release:
+        description: 'Simulate Ruby provider release'
+        type: boolean
+        default: false
 
 permissions:
   contents: write
@@ -13,11 +31,11 @@ jobs:
   release:
     runs-on: ubuntu-latest
     outputs:
-      cloudflare_resolver_release_created: ${{ steps.releasemanifest.outputs['confidence-cloudflare-resolver--release_created'] }}
-      java_provider_release_created: ${{ steps.releasemanifest.outputs['openfeature-provider/java--release_created'] }}
-      js_provider_release_created: ${{ steps.releasemanifest.outputs['openfeature-provider/js--release_created'] }}
-      go_provider_release_created: ${{ steps.releasemanifest.outputs['openfeature-provider/go--release_created'] }}
-      ruby_provider_release_created: ${{ steps.releasemanifest.outputs['openfeature-provider/ruby--release_created'] }}
+      cloudflare_resolver_release_created: ${{ steps.set-outputs.outputs.cloudflare_resolver_release_created }}
+      java_provider_release_created: ${{ steps.set-outputs.outputs.java_provider_release_created }}
+      js_provider_release_created: ${{ steps.set-outputs.outputs.js_provider_release_created }}
+      go_provider_release_created: ${{ steps.set-outputs.outputs.go_provider_release_created }}
+      ruby_provider_release_created: ${{ steps.set-outputs.outputs.ruby_provider_release_created }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -26,17 +44,40 @@ jobs:
 
       - name: Release Please (manifest)
         id: releasemanifest
+        if: github.event_name != 'workflow_dispatch'
         uses: googleapis/release-please-action@v4
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           config-file: release-please-config.json
           manifest-file: .release-please-manifest.json
 
-      - name: Debug - Log Release Please outputs
+      - name: Set outputs (real or simulated)
+        id: set-outputs
         run: |
-          echo "=== Release Please Outputs ==="
-          echo "All outputs (JSON):"
-          echo '${{ toJSON(steps.releasemanifest.outputs) }}'
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            echo "Manual test mode - using workflow inputs"
+            echo "cloudflare_resolver_release_created=false" >> $GITHUB_OUTPUT
+            echo "java_provider_release_created=${{ inputs.test_java_release }}" >> $GITHUB_OUTPUT
+            echo "js_provider_release_created=${{ inputs.test_js_release }}" >> $GITHUB_OUTPUT
+            echo "go_provider_release_created=${{ inputs.test_go_release }}" >> $GITHUB_OUTPUT
+            echo "ruby_provider_release_created=${{ inputs.test_ruby_release }}" >> $GITHUB_OUTPUT
+          else
+            echo "Real release mode - using release-please outputs"
+            echo "cloudflare_resolver_release_created=${{ steps.releasemanifest.outputs['confidence-cloudflare-resolver--release_created'] }}" >> $GITHUB_OUTPUT
+            echo "java_provider_release_created=${{ steps.releasemanifest.outputs['openfeature-provider/java--release_created'] }}" >> $GITHUB_OUTPUT
+            echo "js_provider_release_created=${{ steps.releasemanifest.outputs['openfeature-provider/js--release_created'] }}" >> $GITHUB_OUTPUT
+            echo "go_provider_release_created=${{ steps.releasemanifest.outputs['openfeature-provider/go--release_created'] }}" >> $GITHUB_OUTPUT
+            echo "ruby_provider_release_created=${{ steps.releasemanifest.outputs['openfeature-provider/ruby--release_created'] }}" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Debug - Log outputs
+        run: |
+          echo "=== Release Outputs ==="
+          echo "Mode: ${{ github.event_name }}"
+          echo "Java release: ${{ steps.set-outputs.outputs.java_provider_release_created }}"
+          echo "JS release: ${{ steps.set-outputs.outputs.js_provider_release_created }}"
+          echo "Go release: ${{ steps.set-outputs.outputs.go_provider_release_created }}"
+          echo "Ruby release: ${{ steps.set-outputs.outputs.ruby_provider_release_created }}"
 
   publish-wasm-binary:
     needs: release
@@ -97,6 +138,7 @@ jobs:
           echo "release_tag=$(echo $TAGS | awk '{print $1}')" >> $GITHUB_OUTPUT
 
       - name: Upload WASM to GitHub Release
+        if: github.event_name != 'workflow_dispatch'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
@@ -104,6 +146,14 @@ jobs:
             wasm-artifacts/confidence_resolver.wasm \
             wasm-artifacts/confidence_resolver.wasm.sha256 \
             --clobber
+
+      - name: Test mode - Show WASM info
+        if: github.event_name == 'workflow_dispatch'
+        run: |
+          echo "=== Test Mode - WASM Attestation Created ==="
+          echo "In test mode, skipping actual upload to release"
+          ls -lh wasm-artifacts/
+          cat wasm-artifacts/confidence_resolver.wasm.sha256
 
   publish-cloudflare-deployer-image:
     needs: release
@@ -188,6 +238,7 @@ jobs:
           subject-path: 'java-artifacts/*.jar'
 
       - name: Construct Maven settings file
+        if: github.event_name != 'workflow_dispatch'
         run: |
           cat > /tmp/maven_settings.xml <<'EOF'
           <?xml version="1.0" encoding="UTF-8"?>
@@ -206,11 +257,13 @@ jobs:
           EOF
 
       - name: Write GPG key and passphrase to files
+        if: github.event_name != 'workflow_dispatch'
         run: |
           echo "${{ secrets.GPG_PRIVATE_KEY }}" > /tmp/gpg_private_key.asc
           echo "${{ secrets.SIGN_KEY_PASS }}" > /tmp/gpg_pass.txt
 
       - name: Publish Java package with Docker
+        if: github.event_name != 'workflow_dispatch'
         uses: docker/build-push-action@v6
         with:
           context: .
@@ -220,6 +273,13 @@ jobs:
             maven_settings=/tmp/maven_settings.xml
             gpg_private_key=/tmp/gpg_private_key.asc
             gpg_pass=/tmp/gpg_pass.txt
+
+      - name: Test mode - Show JAR info
+        if: github.event_name == 'workflow_dispatch'
+        run: |
+          echo "=== Test Mode - Java JAR Attestation Created ==="
+          echo "In test mode, skipping actual Maven Central publish"
+          ls -lh java-artifacts/
 
   publish-js-provider-release:
     needs: release
@@ -245,16 +305,27 @@ jobs:
           cache-from: type=registry,ref=ghcr.io/${{ github.repository }}/cache:main
 
       - name: Setup Node.js
+        if: github.event_name != 'workflow_dispatch'
         uses: actions/setup-node@v4
         with:
           node-version: '20'
           registry-url: 'https://registry.npmjs.org'
-      
+
       - name: Update npm
+        if: github.event_name != 'workflow_dispatch'
         run: npm install -g npm@latest
 
       - name: Publish to npm with OIDC
+        if: github.event_name != 'workflow_dispatch'
         run: npm publish ./artifacts/package.tgz --provenance --access public
+
+      - name: Test mode - Show npm package info
+        if: github.event_name == 'workflow_dispatch'
+        run: |
+          echo "=== Test Mode - JavaScript Package Built ==="
+          echo "In test mode, skipping actual npm publish"
+          ls -lh artifacts/
+          tar -tzf artifacts/package.tgz | head -20
 
   publish-ruby-provider-release:
     needs: release
@@ -271,10 +342,12 @@ jobs:
         uses: docker/setup-buildx-action@v3
 
       - name: Write RubyGems API key to file
+        if: github.event_name != 'workflow_dispatch'
         run: |
           echo "${{ secrets.RUBYGEM_API_KEY }}" > /tmp/rubygem_api_key.txt
 
       - name: Publish Ruby gem with Docker
+        if: github.event_name != 'workflow_dispatch'
         uses: docker/build-push-action@v6
         with:
           context: .
@@ -282,3 +355,10 @@ jobs:
           cache-from: type=registry,ref=ghcr.io/${{ github.repository }}/cache:main
           secret-files: |
             rubygem_api_key=/tmp/rubygem_api_key.txt
+
+      - name: Test mode - Ruby gem info
+        if: github.event_name == 'workflow_dispatch'
+        run: |
+          echo "=== Test Mode - Ruby Provider ==="
+          echo "In test mode, skipping actual RubyGems publish"
+          echo "Note: Ruby attestation was removed from workflow"
