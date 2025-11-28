@@ -1,5 +1,33 @@
 # Changelog
 
+## [0.5.0](https://github.com/nicklasl/confidence-resolver/compare/confidence-cloudflare-resolver-v0.4.0...confidence-cloudflare-resolver-v0.5.0) (2025-11-28)
+
+
+### Features
+
+* [release-please] Java Provider support ([#68](https://github.com/nicklasl/confidence-resolver/issues/68)) ([9478533](https://github.com/nicklasl/confidence-resolver/commit/9478533960bf02e86d4ed1aab7ac1edd5034c3fb))
+* add tail worker that incorporates the queue ([#14](https://github.com/nicklasl/confidence-resolver/issues/14)) ([b25f10f](https://github.com/nicklasl/confidence-resolver/commit/b25f10fcc372ae43bc11f382af02c9e5f882538f))
+* error handling to avoid panics ([2a645a8](https://github.com/nicklasl/confidence-resolver/commit/2a645a87415bfce30af048498e068952b18ceb5e))
+* Faster deploy image executions ([#10](https://github.com/nicklasl/confidence-resolver/issues/10)) ([d945331](https://github.com/nicklasl/confidence-resolver/commit/d9453317e9e40575e43d67558ef902a4bc62ee41))
+* Request per second in TelemetryData ([#150](https://github.com/nicklasl/confidence-resolver/issues/150)) ([b91669d](https://github.com/nicklasl/confidence-resolver/commit/b91669d75caa0971ab71d0589634ab039dae6081))
+* size limited flush api  ([#149](https://github.com/nicklasl/confidence-resolver/issues/149)) ([6ac60d6](https://github.com/nicklasl/confidence-resolver/commit/6ac60d6195421c9355941e4201993b521c831fcd))
+
+
+### Bug Fixes
+
+* Fix deployer version check, use tag instead of commit ([#55](https://github.com/nicklasl/confidence-resolver/issues/55)) ([d15123b](https://github.com/nicklasl/confidence-resolver/commit/d15123b63e2b29566b52ad8d09173e40be38dd6d))
+* fix materialization default ([#59](https://github.com/nicklasl/confidence-resolver/issues/59)) ([bdece6c](https://github.com/nicklasl/confidence-resolver/commit/bdece6c5a4d53d6284056b6daaf9e8d17481db84))
+* fix queue waiting ([#57](https://github.com/nicklasl/confidence-resolver/issues/57)) ([b0da391](https://github.com/nicklasl/confidence-resolver/commit/b0da3916f3179ab31ecea8196d106b303b5589d6))
+* Remove tail worker deployment ([#27](https://github.com/nicklasl/confidence-resolver/issues/27)) ([889ca5e](https://github.com/nicklasl/confidence-resolver/commit/889ca5e1f3a9a03f5b8c186dddb3a0aed25b67ce))
+* worker-build install ([#52](https://github.com/nicklasl/confidence-resolver/issues/52)) ([b2d9634](https://github.com/nicklasl/confidence-resolver/commit/b2d9634f6051171ed65ba444131b13a1f27b9884))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * confidence_resolver bumped from 0.7.0 to 0.8.0
+
 ## [0.4.0](https://github.com/spotify/confidence-resolver/compare/confidence-cloudflare-resolver-v0.3.0...confidence-cloudflare-resolver-v0.4.0) (2025-11-24)
 
 
